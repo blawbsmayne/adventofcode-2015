@@ -16,11 +16,12 @@ end
 function perm(a)
   local n = #a
   local co = coroutine.create(function () permgen(a, n) end)
-  return function ()   -- iterator
+  return function ()
     local code, res = coroutine.resume(co)
     return res
   end
 end
+--end http://www.lua.org/pil/9.3.html
 
 -- data
 distances = {}
@@ -52,10 +53,12 @@ while true do
   distances[firstPlace][secPlace]=tonumber(dist)
   distances[secPlace][firstPlace]=tonumber(dist)
 
+  --emulate set
   places[firstPlace]=true
   places[secPlace]=true
 end
 
+--move keys to values
 for k,_ in pairs(places) do
   table.insert(names, k)
 end
